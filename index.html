@@ -1,0 +1,542 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TECMZ Store - Os Melhores APKs e Apps Android</title>
+  
+  <!-- Fontes e Ícones -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-dark: #0b0f19;
+      --card-bg: #141c2e;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --brand-green: #10b981;
+      --brand-green-hover: #059669;
+      --accent-blue: #3b82f6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding-bottom: 60px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* HEADER */
+    .store-header {
+      background-color: rgba(15, 23, 42, 0.9);
+      border-bottom: 1px solid var(--card-border);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      backdrop-filter: blur(10px);
+    }
+
+    .header-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo i { color: var(--brand-green); }
+    .logo span { color: var(--brand-green); }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      max-width: 450px;
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 10px 15px 10px 42px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 30px;
+      color: #fff;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .search-input:focus { border-color: var(--brand-green); }
+
+    /* FILTROS / CATEGORIAS ESTILO PLAY STORE */
+    .categories-bar {
+      display: flex;
+      gap: 10px;
+      margin: 25px 0;
+      overflow-x: auto;
+      padding-bottom: 5px;
+    }
+
+    .cat-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .cat-btn.active, .cat-btn:hover {
+      background: var(--brand-green);
+      color: #fff;
+      border-color: var(--brand-green);
+    }
+
+    /* SEÇÃO DESTAQUE */
+    .featured-section { margin-bottom: 40px; }
+
+    .featured-card {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 100px 1fr auto;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .app-icon-lg {
+      width: 100px;
+      height: 100px;
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: #fff;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    .btn-install {
+      background-color: var(--brand-green);
+      color: #fff;
+      padding: 12px 26px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-install:hover { background-color: var(--brand-green-hover); }
+
+    /* TITULOS */
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* GRELHA DE APPS */
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .app-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 18px;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .app-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(16, 185, 129, 0.4);
+    }
+
+    .app-icon-md {
+      width: 60px;
+      height: 60px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .app-info { flex: 1; }
+    .app-info h3 { font-size: 1rem; margin-bottom: 4px; }
+    .app-meta { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; }
+
+    .rating {
+      font-size: 0.75rem;
+      color: #f59e0b;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* MODAL DE DETALHES DO APP */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: #131c2e;
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      max-width: 550px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 30px;
+      position: relative;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .modal-header {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-badge {
+      display: inline-block;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--brand-green);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+
+    .app-specs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 0.85rem;
+    }
+
+    .app-specs span { display: block; color: var(--text-muted); font-size: 0.75rem; }
+
+    .screenshots-row {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      margin-bottom: 20px;
+    }
+
+    .mock-screenshot {
+      min-width: 120px;
+      height: 200px;
+      background: #1e293b;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      border: 1px solid var(--card-border);
+    }
+
+    @media (max-width: 768px) {
+      .featured-card { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+      .header-wrapper { flex-direction: column; }
+      .search-box { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="store-header">
+    <div class="container header-wrapper">
+      <a href="#" class="logo">
+        <i class="fa-brands fa-android"></i> TEC<span>MZ</span> Store
+      </a>
+
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" class="search-input" placeholder="Pesquisar aplicativo ou jogo..." onkeyup="filtrarApps()">
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- CATEGORIAS -->
+    <div class="categories-bar">
+      <button class="cat-btn active" onclick="filtrarCategoria('todos', this)">Todos os APKs</button>
+      <button class="cat-btn" onclick="filtrarCategoria('redes', this)">Redes Sociais</button>
+      <button class="cat-btn" onclick="filtrarCategoria('ferramentas', this)">Ferramentas & Utilidades</button>
+      <button class="cat-btn" onclick="filtrarCategoria('produtividade', this)">Produtividade</button>
+    </div>
+
+    <!-- APP EM DESTAQUE PRINCIPAL -->
+    <section class="featured-section">
+      <div class="featured-card">
+        <div class="app-icon-lg" style="background: linear-gradient(135deg, #2563eb, #3b82f6);">
+          <i class="fa-solid fa-users"></i>
+        </div>
+        <div>
+          <span style="color: var(--brand-green); font-size: 0.8rem; font-weight: 700;"><i class="fa-solid fa-star"></i> DESTAQUE TECMZ</span>
+          <h1 style="font-size: 1.6rem; margin: 4px 0;">Metoday Social</h1>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Sua nova rede social oficial. Partilhe momentos, faça conexões e interaja em tempo real.</p>
+        </div>
+        <div>
+          <button class="btn-install" onclick="abrirModal(1)">
+            <i class="fa-solid fa-download"></i> Baixar APK
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- LISTA GERAL DE APPS -->
+    <section>
+      <h2 class="section-title"><i class="fa-solid fa-fire"></i> Catálogo de Aplicativos</h2>
+      <div class="apps-grid" id="appsContainer"></div>
+    </section>
+
+  </main>
+
+  <!-- MODAL DE DOWNLOAD / DETALHES DO APP -->
+  <div class="modal-overlay" id="appModal">
+    <div class="modal-content">
+      <button class="close-modal" onclick="fecharModal()"><i class="fa-solid fa-xmark"></i></button>
+      
+      <div class="modal-header">
+        <div class="app-icon-lg" id="modalIcon"></div>
+        <div>
+          <span class="modal-badge" id="modalVerificacao">Verificado por TECMZ</span>
+          <h2 id="modalTitle" style="font-size: 1.4rem;"></h2>
+          <p id="modalCategory" style="color: var(--text-muted); font-size: 0.85rem;"></p>
+        </div>
+      </div>
+
+      <div class="app-specs">
+        <div><strong id="modalSize">--</strong> <span>Tamanho</span></div>
+        <div><strong id="modalVersion">--</strong> <span>Versão</span></div>
+        <div><strong id="modalAndroid">Android 6.0+</strong> <span>Requisito</span></div>
+      </div>
+
+      <p id="modalDesc" style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px;"></p>
+
+      <h4 style="font-size: 0.9rem; margin-bottom: 10px;">Capturas de Ecrã</h4>
+      <div class="screenshots-row">
+        <div class="mock-screenshot"><i class="fa-solid fa-image"></i> Screen 1</div>
+        <div class="mock-screenshot"><i class="fa-solid fa-image"></i> Screen 2</div>
+        <div class="mock-screenshot"><i class="fa-solid fa-image"></i> Screen 3</div>
+      </div>
+
+      <!-- BOTÃO DE DOWNLOAD FINAL DO ARQUIVO -->
+      <a href="#" id="modalDownloadLink" class="btn-install" style="width: 100%; justify-content: center; font-size: 1rem; padding: 14px;" download>
+        <i class="fa-solid fa-download"></i> Baixar Ficheiro APK
+      </a>
+    </div>
+  </div>
+
+  <script>
+    /* =================================================================
+       SUA BASE DE DADOS DE APKS
+       Para adicionar um novo APK no dia a dia, basta copiar um bloco {...}
+       e colocar o link real do ficheiro no campo 'linkApk'.
+    ================================================================= */
+    const bancoDeApps = [
+      {
+        id: 1,
+        nome: "Metoday Social",
+        categoria: "redes",
+        catNome: "Redes Sociais",
+        versao: "v1.0.4",
+        tamanho: "12 MB",
+        classIcone: "fa-solid fa-users",
+        bgIcone: "linear-gradient(135deg, #2563eb, #3b82f6)",
+        descricao: "Metoday é uma rede social inovadora criada para aproximar pessoas. Partilhe fotos, atualizações diárias e momentos de forma leve e rápida.",
+        linkApk: "apks/metoday.apk" // Exemplo de caminho onde o APK estará guardado
+      },
+      {
+        id: 2,
+        categoria: "ferramentas",
+        catNome: "Ferramentas",
+        nome: "MZ Data Saver",
+        versao: "v1.2.0",
+        tamanho: "5 MB",
+        classIcone: "fa-solid fa-bolt",
+        bgIcone: "linear-gradient(135deg, #f59e0b, #d97706)",
+        descricao: "Utilitário para monitorizar o uso de dados móveis no telemóvel e impedir o consumo exagerado da internet em segundo plano.",
+        linkApk: "apks/mz-data-saver.apk"
+      },
+      {
+        id: 3,
+        categoria: "produtividade",
+        catNome: "Produtividade",
+        nome: "TECMZ Notes",
+        versao: "v2.0.1",
+        tamanho: "8 MB",
+        classIcone: "fa-solid fa-note-sticky",
+        bgIcone: "linear-gradient(135deg, #10b981, #059669)",
+        descricao: "Bloco de notas ultra-leve para organizar tarefas do dia a dia e apontamentos com cópia de segurança rápida.",
+        linkApk: "apks/tecmz-notes.apk"
+      }
+    ];
+
+    let categoriaAtual = 'todos';
+
+    function renderizarApps(lista) {
+      const container = document.getElementById('appsContainer');
+      container.innerHTML = '';
+
+      if (lista.length === 0) {
+        container.innerHTML = `<p style="color: var(--text-muted); grid-column: 1/-1; text-align: center; padding: 40px 0;">Nenhum APK encontrado nesta categoria.</p>`;
+        return;
+      }
+
+      lista.forEach(app => {
+        container.innerHTML += `
+          <div class="app-card" onclick="abrirModal(${app.id})">
+            <div class="app-icon-md" style="background: ${app.bgIcone}">
+              <i class="${app.classIcone}"></i>
+            </div>
+            <div class="app-info">
+              <h3>${app.nome}</h3>
+              <div class="app-meta">${app.catNome} • ${app.tamanho}</div>
+              <div class="rating"><i class="fa-solid fa-star"></i> 4.9 • ${app.versao}</div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function abrirModal(id) {
+      const app = bancoDeApps.find(item => item.id === id);
+      if(!app) return;
+
+      document.getElementById('modalTitle').innerText = app.nome;
+      document.getElementById('modalCategory').innerText = app.catNome;
+      document.getElementById('modalSize').innerText = app.tamanho;
+      document.getElementById('modalVersion').innerText = app.versao;
+      document.getElementById('modalDesc').innerText = app.descricao;
+      
+      const modalIcon = document.getElementById('modalIcon');
+      modalIcon.style.background = app.bgIcone;
+      modalIcon.innerHTML = `<i class="${app.classIcone}"></i>`;
+
+      // Atualiza o link do botão de download com o APK correto
+      document.getElementById('modalDownloadLink').setAttribute('href', app.linkApk);
+
+      document.getElementById('appModal').style.display = 'flex';
+    }
+
+    function fecharModal() {
+      document.getElementById('appModal').style.display = 'none';
+    }
+
+    function filtrarCategoria(cat, btn) {
+      categoriaAtual = cat;
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      if(cat === 'todos') {
+        renderizarApps(bancoDeApps);
+      } else {
+        const filtrados = bancoDeApps.filter(a => a.categoria === cat);
+        renderizarApps(filtrados);
+      }
+    }
+
+    function filtrarApps() {
+      const busca = document.getElementById('searchInput').value.toLowerCase();
+      const resultado = bancoDeApps.filter(app => 
+        app.nome.toLowerCase().includes(busca) || 
+        app.catNome.toLowerCase().includes(busca)
+      );
+      renderizarApps(resultado);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderizarApps(bancoDeApps);
+    });
+  </script>
+</body>
+</html>
